@@ -46,23 +46,33 @@ cdnDependencies.forEach(pkg => {
     externals[pkg.name] = pkg.library
 })
 const cdn = {
-    css: cdnDependencies.map(e => e.css).filter(e => e),
-    js: cdnDependencies.map(e => e.js).filter(e => e)
-}
-// gzip 相关
+        css: cdnDependencies.map(e => e.css).filter(e => e),
+        js: cdnDependencies.map(e => e.js).filter(e => e)
+    }
+    // gzip 相关
 const isGZIP = process.env.VUE_APP_GZIP == 'ON'
-
+const DEV_URL = 'http://127.0.0.1:3000/'
 module.exports = {
     publicPath: '',
     productionSourceMap: false,
     devServer: {
         open: true,
-        // proxy: {
-        //     '/': {
-        //         target: process.env.VUE_APP_API_ROOT,
-        //         changeOrigin: true
-        //     }
-        // },
+        port: 8000,
+        proxy: {
+            // '/': {
+            //     target: process.env.VUE_APP_API_ROOT,
+            //     changeOrigin: true
+            // }
+            '/api': {
+                //要访问的跨域的api的域名
+                target: `${DEV_URL}`,
+                ws: true,
+                changOrigin: true,
+                // pathRewrite: {
+                //     '^/api': ''
+                // }
+            },
+        },
         // 用于 mock-server
         // proxy: {
         //     '/mock': {
@@ -114,11 +124,11 @@ module.exports = {
         stylelint: {
             fix: true
         },
-        mock: {
-            entry: './src/mock/server.js',
-            debug: true,
-            disable: true
-        }
+        // mock: {
+        //     entry: './src/mock/server.js',
+        //     debug: true,
+        //     disable: true
+        // }
     },
     chainWebpack: config => {
         const oneOfsMap = config.module.rule('scss').oneOfs.store

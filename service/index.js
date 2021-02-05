@@ -92,6 +92,11 @@ app.post("/api/logout", async(req, res, next) => {
     res.send({ message: "ok", status: 200 });
 })
 
+// 获取用户列表
+app.get("/api/user/list", async(req, res, next) => {
+    res.send({ message: "no", status: 400 });
+})
+
 app.post("/register", async(req, res, next) => {
     let hashes = crypto.getHashes();
     let keyhash = crypto.createHmac('md5', req.body.password)

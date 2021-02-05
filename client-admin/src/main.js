@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
 
 import api from './api'
 Vue.prototype.$api = api
@@ -26,9 +28,10 @@ const req = require.context('./assets/icons', false, /\.svg$/)
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 requireAll(req)
 
-import './mock'
+// import './mock'
 
 Vue.config.productionTip = false
+Vue.use(Antd)
 
 new Vue({
     router,

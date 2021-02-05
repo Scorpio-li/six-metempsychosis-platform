@@ -13,6 +13,7 @@
         "no-descending-specificity": null,
         "selector-pseudo-class-no-unknown": null,
         "selector-pseudo-element-no-unknown": [true, { "ignorePseudoElements": ["v-deep"] }],
-        "property-no-unknown": null
+        "property-no-unknown": null,
+        "font-family-no-missing-generic-family-keyword": null,
     }
 }
