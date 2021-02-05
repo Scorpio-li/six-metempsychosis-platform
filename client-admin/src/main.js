@@ -32,7 +32,8 @@ requireAll(req)
 // import './mock'
 
 Vue.config.productionTip = false
-Vue.use(Antd, VueStorage)
+Vue.use(Antd)
+Vue.use(VueStorage)
 
 new Vue({
     router,

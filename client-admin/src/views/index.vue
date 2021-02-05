@@ -59,7 +59,7 @@
     </a-layout>
 </template>
 <script>
-import {mapState} from 'vuex'
+// import {mapState} from 'vuex'
 import Breadcrumb from '@/views/template/widget/breadcrumb'
 import HeaderAvatar from '@/views/template/layouts/header/HeaderAvatar'
 import {getStore} from '@/util/storage'
@@ -80,9 +80,9 @@ export default {
         }
     },
     computed: {
-        ...mapState({
-            side_menus: state => state.menu.side_menus
-        })
+        // ...mapState({
+        //     side_menus: state => state.menu.side_menus
+        // })
     },
     watch: {
         $route: function() {

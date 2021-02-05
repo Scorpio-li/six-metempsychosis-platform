@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 // import store from '@/store/index'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css' // progress bar style
+import { getStore } from '@/util/storage'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,8 @@ Vue.use(VueRouter)
  * 至于模块里的路由优先级，可以把 /news/edit 放在 /news/:id 前面，或者把 /news/:id 改成 /news/info/:id 均可
  */
 const routes = []
+
+const whiteList = ['login']
 const require_module = require.context('./modules', false, /.js$/)
 require_module.keys().forEach(file_name => {
     routes.push(require_module(file_name).default)
@@ -46,24 +49,55 @@ VueRouter.prototype.replace = function replace(location) {
 
 router.beforeEach((to, from, next) => {
     NProgress.start()
-    // if (to.meta.requireLogin) {
-    //     if (store.getters['token/isLogin']) {
-    //         next()
-    //         NProgress.done()
-    //     } else {
-    //         next({
-    //             path: '/login',
-    //             query: {
-    //                 redirect: to.fullPath
-    //             }
-    //         })
-    //         NProgress.done()
-    //     }
-    // } else {
-    //     next()
-    //     NProgress.done()
-    // }
+    // // if (to.meta.requireLogin) {
+    // //     if (store.getters['token/isLogin']) {
+    // //         next()
+    // //         NProgress.done()
+    // //     } else {
+    // //         next({
+    // //             path: '/login',
+    // //             query: {
+    // //                 redirect: to.fullPath
+    // //             }
+    // //         })
+    // //         NProgress.done()
+    // //     }
+    // // } else {
+    // //     next()
+    // //     NProgress.done()
+    // // }
+    // next()
+    // NProgress.done()
+    if (getStore('token', false)) { // 有token
+        if (to.name === 'index' || to.path === '/index' || to.path === '/') {
+            next({ path: '/dashboard/workplace' })
+            NProgress.done()
+            return false
+        }
+        next()
+    } else {
+        if (to.path !== '/user/login') {
+            (new Vue()).$notification['error']({
+                message: '验证失效，请重新登录！'
+            })
+        }
+        if (whiteList.includes(to.name)) {
+            // 在免登录白名单，直接进入
+            next()
+        } else {
+            next({
+                path: '/user/login',
+                query: {
+                    redirect: to.fullPath
+                }
+            })
+            NProgress.done()
+        }
+    }
     next()
+})
+
+router.afterEach(() => {
     NProgress.done()
 })
 
