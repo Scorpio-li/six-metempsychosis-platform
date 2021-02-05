@@ -90,7 +90,7 @@
       </a-form-item>
 
       <div class="user-login-other">
-        <span>{{ $t('user.login.sign-in-with') }}</span>
+        <!-- <span>{{ $t('user.login.sign-in-with') }}</span>
         <a>
           <a-icon class="item-icon" type="alipay-circle"></a-icon>
         </a>
@@ -99,7 +99,7 @@
         </a>
         <a>
           <a-icon class="item-icon" type="weibo-circle"></a-icon>
-        </a>
+        </a> -->
         <router-link class="register" :to="{ name: 'register' }">{{ $t('user.login.signup') }}</router-link>
       </div>
     </a-form>
@@ -190,8 +190,12 @@ export default {
           delete loginParams.username
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
           loginParams.password = md5(values.password)
+          console.log('loginParams', loginParams)
           Login(loginParams)
-            .then((res) => this.loginSuccess(res))
+            .then((res) => {
+              console.log(res)
+              this.loginSuccess(res)
+            })
             .catch(err => this.requestFailed(err))
             .finally(() => {
               state.loginBtn = false
