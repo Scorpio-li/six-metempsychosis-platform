@@ -89,17 +89,17 @@ export default {
                     username: values.username,
                     password: values.password
                 }
-                console.log('data', data)
                 vm.$api.login.login(data).then(res => {
-                    if (res.code === '00000') {
+                    console.log('res', res)
+                    if (res.code === '0') {
                         setStore('token', res.data && res.data.token)
                         setStore('username', res.data && res.data.username)
-                        vm.$message.success(res.msg)
+                        vm.$message.success(res.message)
                         vm.$router.push({
-                            path: '/dashboard/workplace'
+                            path: '/dashboard'
                         })
                     } else {
-                        vm.$message.warning('登录失败！')
+                        vm.$message.warning(res.message)
                     }
                 }).finally(() => {
                     vm.loading = false

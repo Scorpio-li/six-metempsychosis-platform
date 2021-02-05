@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '@/store/index'
+// import store from '@/store/index'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css' // progress bar style
 
@@ -23,7 +23,8 @@ require_module.keys().forEach(file_name => {
 
 routes.push({
     path: '*',
-    component: () => import('@/views/404'),
+    component: () =>
+        import ('@/views/404'),
     meta: {
         title: '找不到页面'
     }
@@ -45,23 +46,25 @@ VueRouter.prototype.replace = function replace(location) {
 
 router.beforeEach((to, from, next) => {
     NProgress.start()
-    if (to.meta.requireLogin) {
-        if (store.getters['token/isLogin']) {
-            next()
-            NProgress.done()
-        } else {
-            next({
-                path: '/login',
-                query: {
-                    redirect: to.fullPath
-                }
-            })
-            NProgress.done()
-        }
-    } else {
-        next()
-        NProgress.done()
-    }
+    // if (to.meta.requireLogin) {
+    //     if (store.getters['token/isLogin']) {
+    //         next()
+    //         NProgress.done()
+    //     } else {
+    //         next({
+    //             path: '/login',
+    //             query: {
+    //                 redirect: to.fullPath
+    //             }
+    //         })
+    //         NProgress.done()
+    //     }
+    // } else {
+    //     next()
+    //     NProgress.done()
+    // }
+    next()
+    NProgress.done()
 })
 
 export default router

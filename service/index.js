@@ -57,13 +57,13 @@ app.post("/api/login", async(req, res, next) => {
             // } else {
             //     res.send({ message: "密码错误", status: 200 });
             // }
-            res.send({ message: "ok", status: 200, result: { token: random(16) } });
+            res.send({ message: "登录成功", code: 0, result: { token: random(16), username: username, paddword: realPassword } });
         } else {
-            res.send({ message: "用户名不存在", status: 400 });
+            res.send({ message: "用户名不存在", code: 400 });
         }
     } catch (e) {
         console.log("e is ", e);
-        res.send({ message: "no", status: 400 });
+        res.send({ message: "no", code: 400 });
     }
 });
 

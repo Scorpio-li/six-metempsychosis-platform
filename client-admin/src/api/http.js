@@ -1,16 +1,16 @@
 import axios from 'axios'
 // import Qs from 'qs'
-import router from '@/router/index'
+// import router from '@/router/index'
 import store from '@/store/index'
 
-const toLogin = () => {
-    router.push({
-        path: '/login',
-        query: {
-            redirect: router.currentRoute.fullPath
-        }
-    })
-}
+// const toLogin = () => {
+//     router.push({
+//         path: '/login',
+//         query: {
+//             redirect: router.currentRoute.fullPath
+//         }
+//     })
+// }
 
 const api = axios.create({
     baseURL: process.env.VUE_APP_API_ROOT,
@@ -31,9 +31,9 @@ api.interceptors.request.use(
                 if (request.data == undefined) {
                     request.data = {}
                 }
-                if (store.getters['token/isLogin']) {
-                    request.data.token = store.state.token.token
-                }
+                // if (store.getters['token/isLogin']) {
+                //     request.data.token = store.state.token.token
+                // }
                 // request.data = Qs.stringify(request.data)
             }
         } else {
@@ -41,9 +41,9 @@ api.interceptors.request.use(
             if (request.params == undefined) {
                 request.params = {}
             }
-            if (store.getters['token/isLogin']) {
-                request.params.token = store.state.token.token
-            }
+            // if (store.getters['token/isLogin']) {
+            //     request.params.token = store.state.token.token
+            // }
         }
         return request
     }
@@ -51,21 +51,22 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
     response => {
-        if (response.data.error != '') {
-            // 如果接口请求时发现 token 失效，则立马跳转到登录页
-            if (response.data.status == 0) {
-                toLogin()
-                return false
-            }
-            // swal({
-            // 	icon: 'error',
-            // 	title: '系统错误',
-            // 	text: response.data.error,
-            // 	timer: 2000,
-            // 	button: false
-            // });
-            return Promise.reject(response.data)
-        }
+        console.log('response', response)
+        // if (response.data.error != '') {
+        //     // 如果接口请求时发现 token 失效，则立马跳转到登录页
+        //     if (response.data.status == 0) {
+        //         toLogin()
+        //         return false
+        //     }
+        //     // swal({
+        //     // 	icon: 'error',
+        //     // 	title: '系统错误',
+        //     // 	text: response.data.error,
+        //     // 	timer: 2000,
+        //     // 	button: false
+        //     // });
+        //     return Promise.reject(response.data)
+        // }
         return Promise.resolve(response.data)
     },
     error => {
@@ -105,8 +106,10 @@ export function post(url, params, config) {
     console.log(url)
     return new Promise((resolve, reject) => {
         api.post(url, params, config).then(res => {
+            console.log('post', res)
             resolve(res)
         }).catch(err => {
+            console.log(err)
             reject(err)
         })
     })

@@ -4,6 +4,7 @@ import router from './router/index'
 import store from './store/index'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
+import VueStorage from 'vue-ls'
 
 import api from './api'
 Vue.prototype.$api = api
@@ -31,7 +32,7 @@ requireAll(req)
 // import './mock'
 
 Vue.config.productionTip = false
-Vue.use(Antd)
+Vue.use(Antd, VueStorage)
 
 new Vue({
     router,
