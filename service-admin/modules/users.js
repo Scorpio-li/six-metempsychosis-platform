@@ -38,6 +38,7 @@ class usersModel {
      * @returns {Promise<Model>}
      */
     static async getUserDetail(id) {
+        console.log('id', id)
         return await users.findOne({
             where: {
                 id

@@ -92,14 +92,14 @@ export default {
                 vm.$api.login.login(data).then(res => {
                     console.log('res', res)
                     if (res.code === 0) {
-                        setStore('token', res.data && res.data.token)
+                        setStore('token', res.data && res.token)
                         setStore('username', res.data && res.data.username)
-                        vm.$message.success(res.message)
+                        vm.$message.success(res.msg)
                         vm.$router.push({
                             path: '/dashboard/workplace'
                         })
                     } else {
-                        vm.$message.warning(res.message)
+                        vm.$message.warning(res.msg)
                     }
                 }).finally(() => {
                     vm.loading = false
