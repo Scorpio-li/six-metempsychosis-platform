@@ -14,8 +14,8 @@
 export default {
     data() {
         return {
-            breadcrumb: [{title: '仪表盘', path: ''}, {title: '欢迎', path: ''}],
-            msg: '欢迎来到后端系统',
+            breadcrumb: [{title: '个人首页', path: ''}, {title: '工作台', path: ''}],
+            msg: '欢迎来到lzl-六道管理系统',
             stars: [
                 // {
                 //   x: 1, // x坐标

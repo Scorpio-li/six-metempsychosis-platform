@@ -16,7 +16,7 @@ class loginModel {
      * @returns {Promise<Model>}
      */
     static async getLoginData(params) {
-        return await users.findOne({
+        return await users.findAll({
             where: {
                 username: params.username,
                 password: params.password

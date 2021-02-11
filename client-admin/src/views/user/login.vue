@@ -92,7 +92,7 @@ export default {
                 vm.$api.login.login(data).then(res => {
                     console.log('res', res)
                     if (res.code === 0) {
-                        setStore('token', res.data && res.token)
+                        setStore('token', res && res.token)
                         setStore('username', res.data && res.data.username)
                         vm.$message.success(res.msg)
                         vm.$router.push({

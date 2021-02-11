@@ -25,9 +25,19 @@
                 <a-sub-menu>
                     <span slot="title">
                         <a-icon type="book" />
-                        <span>文章</span>
+                        <span>个人首页</span>
                     </span>
-                    <a-menu-item @click="$router.push({ path: '/article/list'})">列表</a-menu-item>
+                    <a-menu-item @click="$router.push({ path: '/dashboard/workplace'})">工作台</a-menu-item>
+                    <a-menu-item @click="$router.push({ path: '/account/center'})">个人中心</a-menu-item>
+                    <a-menu-item @click="$router.push({ path: '/account/setting'})">个人设置</a-menu-item>
+                </a-sub-menu>
+                <a-sub-menu>
+                    <span slot="title">
+                        <a-icon type="book" />
+                        <span>网站</span>
+                    </span>
+                    <a-menu-item @click="$router.push({ path: '/website/list'})">借鉴网站</a-menu-item>
+                    <a-menu-item @click="$router.push({ path: '/website/tool'})">在线工具网站</a-menu-item>
                 </a-sub-menu>
             </a-menu>
         </a-layout-sider>
