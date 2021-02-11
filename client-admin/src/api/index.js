@@ -9,5 +9,9 @@ export default {
     // 用户管理
     user: {
         userlist: val => get('/api/user/list', val) // 用户列表
+    },
+    // 网站管理
+    websites: {
+        addwebsite: val => post('/api/website/additem', val) // 添加网站
     }
 }
